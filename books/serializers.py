@@ -13,3 +13,9 @@ class BannerSerializer(serializers.ModelSerializer):
         model = Banner
         #fields = "__all__"
         fields = ['carousel_id','carousel_url','redirect_url','carousel_rand']
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = "__all__"
+        #fields = ['carousel_id','carousel_url','redirect_url','carousel_rand']

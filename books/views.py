@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet
 from .serializers import BookSerializer, BannerSerializer
-from .models import Book, Banner
+from .models import Book, Banner, User
 
 
 class BookViewSet(ModelViewSet):
@@ -33,6 +33,13 @@ class BannerViewSet(ModelViewSet):
             return JsonResponse({'status': 500, 'message': '链接有误'})
 
 
+class UserViewSet(ModelViewSet):
 
-
-
+    @action(methods=['GET'], detail=False, url_path="books/user/")
+    def findUsers(self, request):
+        queryset = User.objects.values().filter(is_deleted=0)
+        # print(JsonResponse(list(queryset), safe=False))
+        if (queryset != ''):
+            return JsonResponse({'status': 200, 'data': list(queryset)}, safe=False)
+        else:
+            return JsonResponse({'status': 500, 'message': '链接有误'})
